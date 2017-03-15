@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Your Pragmatic Cart</h2>
+
+<div class="panel panel-default">
+
+<div class="panel-heading">cart</div>
+
+
+<div class="panel-body">
+ <table class="table table-responsive">
+    
+    <% @cart.line_items.each do |item| %>
+    <tr>
+    <td><%= item.quantity %> &times; </td><td><%= item.product.title %></td><td><%= number_to_currency(item.total_price) %></td>
+    </tr>
+    <% end %>
+    <tr>
+    <td colspan="2">Total Order Value </td><td><%= number_to_currency(@cart.total_price) %></td>
+    </tr>
+ </table>
+</div>
+
+<div class="panel-footer">
+
+<%= link_to 'Edit', edit_cart_path(@cart) ,class:"btn btn-xs btn-danger" %> |
+<%= link_to 'Back', carts_path , class:"btn btn-xs btn-danger" %>
+
+</div></div>
+
+<ul>
+    <% @cart.line_items.each do |item| %>
+    <li><%= item.quantity %> &times; <%= item.product.title %></li>
+  <% end %>
+</ul>
+
+
+<%= link_to 'Keep Shopping', store_index_url , class:"btn btn-warning" %>
+
+
+<%= button_to "bad hombres Checkout", new_order_path, class:"btn btn-success", method: :get %>
+<%= button_to "Checkout", new_order_path, method: :get , class:"btn btn-default" %>
+
+<%= button_to 'bad hombres Empty cart', class:"btn btn-warning", method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= button_to 'Empty cart', @cart, method: :delete, data: { confirm: 'Are you sure?' } , class:"btn btn-default" %>
